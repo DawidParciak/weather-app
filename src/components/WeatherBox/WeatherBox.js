@@ -1,13 +1,13 @@
 import PickCity from '../PickCity/PickCity';
 import WeatherSummary from '../WeatherSummary/WeatherSummary';
 import Loader from '../Loader/Loader';
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 
-const WeatherBox = props => {
+const WeatherBox = () => {
+
+  const [weather, setWeather] = useState('');
 
   const handleCityChange = useCallback(city => {
-    console.log('City: ', city);
-
     fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=37066b1cca04b9508cf4ea94cac08457&units=metric`)
     .then(res => res.json())
     .then(data => {
@@ -17,6 +17,7 @@ const WeatherBox = props => {
         icon: data.weather[0].icon,
         description: data.weather[0].main
       };
+      setWeather(weatherData)
       console.log(weatherData);
     });
   });
@@ -24,7 +25,7 @@ const WeatherBox = props => {
   return (
     <section>
       <PickCity action={handleCityChange}/>
-      <WeatherSummary />
+      <WeatherSummary {...weather} />
       <Loader />
     </section>
   )

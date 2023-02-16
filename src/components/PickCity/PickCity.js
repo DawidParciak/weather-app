@@ -9,14 +9,18 @@ const PickCity = ({ action }) => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    action({ city });
+    action( city );
     setCity('');
   }
 
   return (
     <form className={styles.pickCityForm} onSubmit={handleSubmit}> 
       <label>
-        <TextInput placeholder="Enter city name...." value={city} onChange={e => setCity(e.target.value)} />
+        <TextInput 
+          placeholder="Enter city name...." 
+          value={city} 
+          onChange={e => setCity(e.target.value)} 
+        />
       </label>
       <Button>Search</Button>
     </form>
